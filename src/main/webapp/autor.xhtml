@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="_template.xhtml">
+
+	<ui:define name="titulo">Criar Autor</ui:define>
+	<ui:define name="conteudo">
+	
+		<f:metadata>
+			<f:viewParam name="autorId" value="#{autorBean.autorId}" />
+			<f:viewAction action="#{autorBean.carregaAutorPorId()}"
+				if="#{param.autorId != null }" />
+		</f:metadata>
+
+
+		<h:form id="formAutor">
+			<p:fieldset legend="Dados do Autor">
+				<h:panelGrid columns="3">
+					<p:outputLabel value="Nome" for="nome" />
+					<p:inputText value="#{autorBean.autor.nome}" id="nome"
+						required="true">
+						<f:validateLength minimum="3" />
+						<f:ajax event="blur" render="message-nome" />
+					</p:inputText>
+					<p:message id="message-nome" for="nome" />
+
+					<p:outputLabel value="Email" for="email" />
+					<p:inputText value="#{autorBean.autor.email}" id="email"
+						validatorMessage="Email inválido">
+						<f:passThroughAttribute name="type" value="email" />
+						<f:passThroughAttribute name="placeholder" value="Email do autor" />
+						<f:validateRegex pattern=".+@.+" />
+						<f:ajax event="blur" render="message-email" />
+					</p:inputText>
+					<p:message for="email" id="message-email" />
+
+					<p:commandButton action="#{autorBean.gravar}" value="Registrar"
+						update="@form :formListAutores" process="@form" />
+				</h:panelGrid>
+			</p:fieldset>
+		</h:form>
+
+
+		<h:form id="formListAutores">
+
+			<p:dataList id="tabelaAutores" value="#{autorBean.buscaAutores()}"
+				var="autor" type="definition">
+				<f:facet name="header">
+            		Autor
+       			</f:facet>
+
+				<p:commandButton action="#{autorBean.alterarAutor(autor)}"
+					 icon="fa fa-fw fa-edit"
+					update=":formAutor" />
+					
+				<p:commandButton action="#{autorBean.removerAutor(autor)}"
+					 icon="fa fa-fw fa-remove"
+					update="@form"/>
+					
+				#{autor.nome} - #{autor.email}
+			</p:dataList>
+		</h:form>
+
+	</ui:define>
+	<ui:define name="conteudo-rodape">
+		gege oficial
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="_template.xhtml">
+
+	<ui:define name="titulo">Login</ui:define>
+	<ui:define name="conteudo">
+
+		<p:messages globalOnly="true" />
+
+		<h:form id="login">
+			<p:fieldset legend="Dados do Usuario">
+
+				<h:panelGrid columns="3">
+					<p:outputLabel value="Email" for="email" />
+					<p:inputText value="#{loginBean.usuario.email}" id="email"
+						required="true">
+						<f:passThroughAttribute name="type" value="email" />
+					</p:inputText>
+					<p:message for="email" />
+
+					<p:outputLabel value="Senha" for="senha" />
+					<p:password id="senha" value="#{loginBean.usuario.senha}"
+						feedback="true" required="true" promptLabel="Digite a sua senha"
+						weakLabel="Fraca" goodLabel="Bom" strongLabel="Forte" />
+					<p:message for="senha" />
+
+					<p:commandButton action="#{loginBean.logando()}" value="Logar"
+						update="@form" process="@form" ajax="false" />
+				</h:panelGrid>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+	<ui:define name="conteudo-rodape">
+		gege oficial
+	</ui:define>
+</ui:composition>
+</html>
