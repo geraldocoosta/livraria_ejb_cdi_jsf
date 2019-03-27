@@ -6,7 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaQuery;
 
-public class DAO<T> implements Serializable{
+public class DAO<T> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -19,20 +19,12 @@ public class DAO<T> implements Serializable{
 		em = manager;
 	}
 
-	public void persist(T t) {
-		em.persist(t);
-	}
-
 	public void atualiza(T t) {
 		em.merge(t);
 	}
 
 	public T busca(Integer id) {
 		return em.find(classe, id);
-	}
-
-	public void remove(T t) {
-		em.remove(em.merge(t));
 	}
 
 	public List<T> buscaTodos() {
@@ -54,5 +46,12 @@ public class DAO<T> implements Serializable{
 		return lista;
 	}
 
+	public void persist(T t) {
+		em.persist(t);
+	}
+
+	public void remove(T t) {
+		em.remove(em.merge(t));
+	}
 
 }

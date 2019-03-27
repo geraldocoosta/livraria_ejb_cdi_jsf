@@ -28,13 +28,19 @@ public class LoginBean implements Serializable {
 	@Inject
 	private FacesContext context;
 
-	@PostConstruct
-	public void init() {
+	public String deslogar() {
+		context.getExternalContext().getSessionMap().remove("usuarioLogado");
 		usuario = new Usuario();
+		return PAGES_LOGIN_REDIRECT;
 	}
 
 	public Usuario getUsuario() {
 		return usuario;
+	}
+
+	@PostConstruct
+	public void init() {
+		usuario = new Usuario();
 	}
 
 	public String logando() {
@@ -51,12 +57,6 @@ public class LoginBean implements Serializable {
 		context.getExternalContext().getFlash().setKeepMessages(true);
 		context.addMessage(null, new FacesMessage("Usuario não encontrado"));
 
-		return PAGES_LOGIN_REDIRECT;
-	}
-
-	public String deslogar() {
-		context.getExternalContext().getSessionMap().remove("usuarioLogado");
-		usuario = new Usuario();
 		return PAGES_LOGIN_REDIRECT;
 	}
 }

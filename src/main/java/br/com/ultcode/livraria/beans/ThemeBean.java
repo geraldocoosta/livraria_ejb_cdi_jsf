@@ -9,22 +9,22 @@ import javax.inject.Named;
 @SessionScoped
 public class ThemeBean implements Serializable {
 
-    private static final long serialVersionUID = 9115715001278793106L;
-    private String theme = "vader";
+	private static final long serialVersionUID = 9115715001278793106L;
+	private String theme = "vader";
 
-    public String getTheme() {
-	return theme;
-    }
+	public String[] getTemas() {
+		return new String[] { "afterdark", "afternoon", "afterwork", "aristo", "black-tie", "blitzer", "bluesky",
+				"bootstrap", "casablanca", "cupertino", "cruze", "dark-hive", "delta", "dot-luv", "eggplant",
+				"excite-bike", "flick", "glass-x", "home", "hot-sneaks", "humanity", "le-frog", "midnight", "mint-choc",
+				"overcast", "pepper-grinder", "redmond", "rocket", "sam", "smoothness", "south-street", "start",
+				"sunny", "swanky-purse", "trontastic", "ui-darkness", "ui-lightness", "vader" };
+	}
 
-    public void setTheme(String theme) {
-	this.theme = theme;
-    }
+	public String getTheme() {
+		return theme;
+	}
 
-    public String[] getTemas() {
-	return new String[] { "afterdark", "afternoon", "afterwork", "aristo", "black-tie", "blitzer", "bluesky",
-		"bootstrap", "casablanca", "cupertino", "cruze", "dark-hive", "delta", "dot-luv", "eggplant",
-		"excite-bike", "flick", "glass-x", "home", "hot-sneaks", "humanity", "le-frog", "midnight", "mint-choc",
-		"overcast", "pepper-grinder", "redmond", "rocket", "sam", "smoothness", "south-street", "start",
-		"sunny", "swanky-purse", "trontastic", "ui-darkness", "ui-lightness", "vader" };
-    }
+	public void setTheme(String theme) {
+		this.theme = theme;
+	}
 }

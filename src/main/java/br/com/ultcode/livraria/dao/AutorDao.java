@@ -13,35 +13,35 @@ import br.com.ultcode.livraria.modelo.Autor;
 @Stateless
 public class AutorDao implements Serializable {
 
-    private static final long serialVersionUID = 7237372867940712873L;
-    
-    @PersistenceContext
-    private EntityManager manager;
-    private DAO<Autor> dao;
+	private static final long serialVersionUID = 7237372867940712873L;
 
-    @PostConstruct
-    private void init() {
-	dao = new DAO<>(manager, Autor.class);
-    }
+	@PersistenceContext
+	private EntityManager manager;
+	private DAO<Autor> dao;
 
-    public void persist(Autor t) {
-	dao.persist(t);
-    }
+	public void atualiza(Autor t) {
+		dao.atualiza(t);
+	}
 
-    public void atualiza(Autor t) {
-	dao.atualiza(t);
-    }
+	public Autor busca(Integer id) {
+		return dao.busca(id);
+	}
 
-    public Autor busca(Integer id) {
-	return dao.busca(id);
-    }
+	public List<Autor> buscaTodos() {
+		return dao.buscaTodos();
+	}
 
-    public void remove(Autor t) {
-	dao.remove(t);
-    }
+	@PostConstruct
+	private void init() {
+		dao = new DAO<>(manager, Autor.class);
+	}
 
-    public List<Autor> buscaTodos() {
-	return dao.buscaTodos();
-    }
+	public void persist(Autor t) {
+		dao.persist(t);
+	}
+
+	public void remove(Autor t) {
+		dao.remove(t);
+	}
 
 }

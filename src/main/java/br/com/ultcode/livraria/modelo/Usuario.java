@@ -23,20 +23,20 @@ public class Usuario implements Serializable {
 		return email;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
 	public String getSenha() {
 		return senha;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public void setSenha(String senha) {

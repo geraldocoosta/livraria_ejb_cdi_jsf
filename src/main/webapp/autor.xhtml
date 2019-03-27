@@ -9,7 +9,7 @@
 
 	<ui:define name="titulo">Criar Autor</ui:define>
 	<ui:define name="conteudo">
-	
+
 		<f:metadata>
 			<f:viewParam name="autorId" value="#{autorBean.autorId}" />
 			<f:viewAction action="#{autorBean.carregaAutorPorId()}"
@@ -54,12 +54,10 @@
        			</f:facet>
 
 				<p:commandButton action="#{autorBean.alterarAutor(autor)}"
-					 icon="fa fa-fw fa-edit"
-					update=":formAutor" />
-					
+					icon="fa fa-fw fa-edit" update=":formAutor" />
+
 				<p:commandButton action="#{autorBean.removerAutor(autor)}"
-					 icon="fa fa-fw fa-remove"
-					update="@form"/>
+					icon="fa fa-fw fa-remove" update="@form" />
 					
 				#{autor.nome} - #{autor.email}
 			</p:dataList>

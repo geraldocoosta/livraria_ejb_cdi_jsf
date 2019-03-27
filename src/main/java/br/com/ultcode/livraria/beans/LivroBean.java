@@ -38,98 +38,21 @@ public class LivroBean implements Serializable {
 	@Inject
 	private AutorDao autorDao;
 
-	public LivroDataModel getModel() {
-		return model;
-	}
-
-	public void setModel(LivroDataModel model) {
-		this.model = model;
-	}
-
-	public Integer getLivroId() {
-		return livroId;
-	}
-
-	public void setLivroId(Integer livroId) {
-		this.livroId = livroId;
-	}
-
-	public Livro getLivro() {
-		return livro;
-	}
-
-	public Integer getAutorId() {
-		return autorId;
-	}
-
-	public void setAutorId(Integer autorId) {
-		this.autorId = autorId;
-	}
-
-	@Transactional
-	public void gravar() {
-
-		if (livro.getAutores().isEmpty()) {
-//			throw new RuntimeException("Livro deve ter pelo menos um Autor.");
-			/*
-			 * Aqui, em vez de lançarmos uma exceção, vamos lançar um error message, para
-			 * aparecer bonitinho no front
-			 */
-			FacesContext.getCurrentInstance().addMessage("autor",
-					new FacesMessage("Livro deve ter pelo menos um autor"));
-			return;
-		}
-
-		if (livro.getId() == null) {
-			livroDao.persist(livro);
-
-		} else {
-			livroDao.atualiza(livro);
-		}
-		buscarLivros();
-		this.livro = new Livro();
-
-	}
-
-	public void removeAutorDoLivro(Autor autor) {
-		this.livro.removeAutor(autor);
-	}
-
 	@Transactional
 	public void alterarLivro(Livro livro) {
 		this.livro = this.livroDao.buscaComEscritores(livro);
 	}
 
-	@Transactional
-	public void removerLivro(Livro livro) {
-		livroDao.remove(livro);
-		buscarLivros();
-	}
-
-	public void gravarAutor() {
-		Autor autor = autorDao.busca(autorId);
-		if (!livro.temAutor(autor)) {
-			livro.adicionaAutor(autor);
-		}
-	}
-
-	public List<Autor> getAutores() {
-		return autorDao.buscaTodos();
-	}
-
-	public List<Autor> getAutoresDoLivro() {
-		return livro.getAutores();
-	}
-
-	public List<Livro> getLivros() {
-		if (livros == null) {
-			buscarLivros();
-		}
-		return livros;
-	}
-
 	private void buscarLivros() {
 		livros = livroDao.buscaTodos();
+	}
+
+	@Transactional
+	public void carregaAutorPorId() {
+		this.livro = livroDao.busca(livroId);
+		if (livro == null) {
+			this.livro = new Livro();
+		}
 	}
 
 	/*
@@ -164,11 +87,66 @@ public class LivroBean implements Serializable {
 		return "autor?faces-redirect=true";
 	}
 
+	public List<Autor> getAutores() {
+		return autorDao.buscaTodos();
+	}
+
+	public List<Autor> getAutoresDoLivro() {
+		return livro.getAutores();
+	}
+
+	public Integer getAutorId() {
+		return autorId;
+	}
+
+	public Livro getLivro() {
+		return livro;
+	}
+
+	public Integer getLivroId() {
+		return livroId;
+	}
+
+	public List<Livro> getLivros() {
+		if (livros == null) {
+			buscarLivros();
+		}
+		return livros;
+	}
+
+	public LivroDataModel getModel() {
+		return model;
+	}
+
 	@Transactional
-	public void carregaAutorPorId() {
-		this.livro = livroDao.busca(livroId);
-		if (livro == null) {
-			this.livro = new Livro();
+	public void gravar() {
+
+		if (livro.getAutores().isEmpty()) {
+//			throw new RuntimeException("Livro deve ter pelo menos um Autor.");
+			/*
+			 * Aqui, em vez de lançarmos uma exceção, vamos lançar um error message, para
+			 * aparecer bonitinho no front
+			 */
+			FacesContext.getCurrentInstance().addMessage("autor",
+					new FacesMessage("Livro deve ter pelo menos um autor"));
+			return;
+		}
+
+		if (livro.getId() == null) {
+			livroDao.persist(livro);
+
+		} else {
+			livroDao.atualiza(livro);
+		}
+		buscarLivros();
+		this.livro = new Livro();
+
+	}
+
+	public void gravarAutor() {
+		Autor autor = autorDao.busca(autorId);
+		if (!livro.temAutor(autor)) {
+			livro.adicionaAutor(autor);
 		}
 	}
 
@@ -191,6 +169,28 @@ public class LivroBean implements Serializable {
 		} catch (NumberFormatException e) {
 			return false;
 		}
+	}
+
+	public void removeAutorDoLivro(Autor autor) {
+		this.livro.removeAutor(autor);
+	}
+
+	@Transactional
+	public void removerLivro(Livro livro) {
+		livroDao.remove(livro);
+		buscarLivros();
+	}
+
+	public void setAutorId(Integer autorId) {
+		this.autorId = autorId;
+	}
+
+	public void setLivroId(Integer livroId) {
+		this.livroId = livroId;
+	}
+
+	public void setModel(LivroDataModel model) {
+		this.model = model;
 	}
 
 }

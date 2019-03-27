@@ -17,12 +17,12 @@ public class Venda {
 		return livro;
 	}
 
-	public void setLivro(Livro livro) {
-		this.livro = livro;
-	}
-
 	public Integer getQuantidade() {
 		return quantidade;
+	}
+
+	public void setLivro(Livro livro) {
+		this.livro = livro;
 	}
 
 	public void setQuantidade(Integer quantidade) {

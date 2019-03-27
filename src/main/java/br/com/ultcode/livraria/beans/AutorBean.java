@@ -13,7 +13,7 @@ import br.com.ultcode.livraria.modelo.Autor;
 
 @Named
 @ViewScoped
-public class AutorBean implements Serializable  {
+public class AutorBean implements Serializable {
 
 	private static final long serialVersionUID = -5673614687622426965L;
 	private Autor autor = new Autor();
@@ -22,12 +22,12 @@ public class AutorBean implements Serializable  {
 	@Inject
 	private AutorDao autorDao;
 
-	public Integer getAutorId() {
-		return autorId;
+	public void alterarAutor(Autor autor) {
+		this.autor = autor;
 	}
 
-	public void setAutorId(Integer autorId) {
-		this.autorId = autorId;
+	public List<Autor> buscaAutores() {
+		return autorDao.buscaTodos();
 	}
 
 	public void carregaAutorPorId() {
@@ -39,6 +39,10 @@ public class AutorBean implements Serializable  {
 
 	public Autor getAutor() {
 		return autor;
+	}
+
+	public Integer getAutorId() {
+		return autorId;
 	}
 
 	@Transactional
@@ -53,16 +57,12 @@ public class AutorBean implements Serializable  {
 		return "livro?faces-redirect=true";
 	}
 
-	public List<Autor> buscaAutores() {
-		return autorDao.buscaTodos();
-	}
-
 	@Transactional
 	public void removerAutor(Autor autor) {
 		autorDao.remove(autor);
 	}
 
-	public void alterarAutor(Autor autor) {
-		this.autor = autor;
+	public void setAutorId(Integer autorId) {
+		this.autorId = autorId;
 	}
 }

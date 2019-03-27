@@ -24,7 +24,9 @@
 		</h:panelGrid>
 
 		<h:form rendered="#{usuarioLogado != null}">
-			<p:growl id="messages" showDetail="true" autoUpdate="true" />
+			<p:growl id="messages" showDetail="true">
+				<p:autoUpdate />
+			</p:growl>
 
 			<p:menuButton value="Menu">
 				<p:menuitem value="Autor" action="autor?faces-redirect=true"

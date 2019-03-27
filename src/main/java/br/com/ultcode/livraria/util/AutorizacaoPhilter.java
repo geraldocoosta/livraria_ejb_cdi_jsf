@@ -12,7 +12,7 @@ import br.com.ultcode.livraria.modelo.Usuario;
 public class AutorizacaoPhilter implements PhaseListener {
 
 	private static final long serialVersionUID = -1200812529396911229L;
-	
+
 	@Inject
 	private FacesContext context;
 

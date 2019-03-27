@@ -18,30 +18,22 @@ import br.com.ultcode.livraria.modelo.Livro;
 public class LivroDao implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@PersistenceContext
 	private EntityManager manager;
 	private DAO<Livro> dao;
-
-	@PostConstruct
-	private void init() {
-		dao = new DAO<>(manager, Livro.class);
-	}
-
-	public void persist(Livro t) {
-		dao.persist(t);
-	}
 
 	public void atualiza(Livro t) {
 		dao.atualiza(t);
 	}
 
 	public Livro busca(Integer id) {
-		 return dao.busca(id);
+		return dao.busca(id);
 	}
 
-	public void remove(Livro t) {
-		dao.remove(t);
+	public Livro buscaComEscritores(Livro livro) {
+		return manager.createQuery("select l from Livro l left join fetch l.autor where l = :pLivro", Livro.class)
+				.setParameter("pLivro", livro).getSingleResult();
 	}
 
 	public List<Livro> buscaTodos() {
@@ -50,6 +42,11 @@ public class LivroDao implements Serializable {
 
 	public int contaTodos() {
 		return dao.contaTodos();
+	}
+
+	@PostConstruct
+	private void init() {
+		dao = new DAO<>(manager, Livro.class);
 	}
 
 	public List<Livro> listaTodosPaginada(int firstResult, int maxResults) {
@@ -79,14 +76,18 @@ public class LivroDao implements Serializable {
 			query = query.where(criteriaBuilder.le(root.<Long>get("preco"), preco));
 		}
 
-		List<Livro> lista = manager.createQuery(query).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+		List<Livro> lista = manager.createQuery(query).setFirstResult(firstResult).setMaxResults(maxResults)
+				.getResultList();
 
 		return lista;
 	}
 
-	public Livro buscaComEscritores(Livro livro) {
-		return manager.createQuery("select l from Livro l left join fetch l.autor where l = :pLivro", Livro.class)
-			.setParameter("pLivro", livro).getSingleResult();
+	public void persist(Livro t) {
+		dao.persist(t);
+	}
+
+	public void remove(Livro t) {
+		dao.remove(t);
 	}
 
 }
