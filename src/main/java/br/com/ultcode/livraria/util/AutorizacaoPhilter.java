@@ -5,17 +5,20 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
+import javax.inject.Inject;
 
 import br.com.ultcode.livraria.modelo.Usuario;
 
 public class AutorizacaoPhilter implements PhaseListener {
 
 	private static final long serialVersionUID = -1200812529396911229L;
+	
+	@Inject
+	private FacesContext context;
 
 	@Override
 	public void afterPhase(PhaseEvent event) {
 
-		FacesContext context = event.getFacesContext();
 		String viewId = context.getViewRoot().getViewId();
 
 		System.out.println(viewId);

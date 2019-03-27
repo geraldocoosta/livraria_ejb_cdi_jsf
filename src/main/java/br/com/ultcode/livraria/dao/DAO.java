@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
 public class DAO<T> implements Serializable{
@@ -37,14 +36,7 @@ public class DAO<T> implements Serializable{
 	}
 
 	public List<T> buscaTodos() {
-		CriteriaBuilder builder = em.getCriteriaBuilder();
-
-		CriteriaQuery<T> query = builder.createQuery(classe);
-		CriteriaQuery<T> select = query.select(query.distinct(true).from(classe));
-
-		List<T> resultList = em.createQuery(select).getResultList();
-
-		return resultList;
+		return em.createQuery("from " + classe.getSimpleName(), classe).getResultList();
 	}
 
 	public int contaTodos() {

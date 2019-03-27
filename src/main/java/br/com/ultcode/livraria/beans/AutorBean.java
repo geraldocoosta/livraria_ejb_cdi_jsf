@@ -13,7 +13,7 @@ import br.com.ultcode.livraria.modelo.Autor;
 
 @Named
 @ViewScoped
-public class AutorBean implements Serializable {
+public class AutorBean implements Serializable  {
 
 	private static final long serialVersionUID = -5673614687622426965L;
 	private Autor autor = new Autor();
