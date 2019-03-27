@@ -5,9 +5,9 @@ Para esse projeto, foram usadas as especificações JSP com hibernate, JSF, CDI,
 ## Configurando
 
 Usar com WildFly 13.
-Configurar o modulo do mysql, entrando nas pastas: modules\system\layers\base\com
+Configurar o modulo do mysql no wildfly, entrando na seguinte pasta a partir da pasta raiz do wildfly: modules\system\layers\base\com
 Dentro dessa pasta, criar: mysql\main
-Após isso, baixar o driver do mysql [mysql-connector-java-8.0.15.jar](http://central.maven.org/maven2/mysql/mysql-connector-java/8.0.15/mysql-connector-java-8.0.15.jar);
+Após isso, baixar o driver do mysql [mysql-connector-java-8.0.15.jar](http://central.maven.org/maven2/mysql/mysql-connector-java/8.0.15/mysql-connector-java-8.0.15.jar), e jogar o driver (arquivo mysql-connector-java-8.0.15.jar) dentro da pasta criada.
 
 Criar um arquivo chamado module.xml com o seguinte conteudo:
 
@@ -34,27 +34,27 @@ Após isso, entrar no arquivo standalone\configuration\standalone.xml a partir d
 Buscar no arquivo as tag &#60;datasorces&#62;, dentro dessa tag colocar o seguinte código:
 
 ```
-				<datasource jndi-name="java:/livraria-ds" pool-name="livrariaDS" enabled="true" use-java-context="true">
-					<connection-url>jdbc:mysql://localhost:3306/livraria_jsf?useTimezone=true&amp;serverTimezone=UTC</connection-url>
-					<driver>com.mysql</driver>
-					<pool>
-						<min-pool-size>10</min-pool-size>
-						<max-pool-size>100</max-pool-size>
-						<prefill>true</prefill>
-					</pool>
-					<security>
-						<user-name>root</user-name>
-					</security>
-				</datasource>
+<datasource jndi-name="java:/livraria-ds" pool-name="livrariaDS" enabled="true" use-java-context="true">
+	<connection-url>jdbc:mysql://localhost:3306/livraria_jsf?useTimezone=true&amp;serverTimezone=UTC</connection-url>
+	<driver>com.mysql</driver>
+	<pool>
+		<min-pool-size>10</min-pool-size>
+		<max-pool-size>100</max-pool-size>
+		<prefill>true</prefill>
+	</pool>
+	<security>
+		<user-name>root</user-name>
+	</security>
+</datasource>
 ```  
 
 Lembrando que em user-name deve-se colocar o login do banco, se tiver senha é preciso colocar a essa entre as tags &#60;password&#62;. Essa tag deve ficar junto com a &#60;user-name&#62;.
 
 Dentro da tag &#60;drivers&#62;, colocar o seguinte código:
 ```
-					<driver name="com.mysql" module="com.mysql">
-						<xa-datasource-class>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</xa-datasource-class>
-					</driver>
+<driver name="com.mysql" module="com.mysql">
+	<xa-datasource-class>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</xa-datasource-class>
+</driver>
 ```
 
 Após isso, compilar o projeto com mvn package, e colocar o .war dentro do diretorio standalone\deployments a partir da raiz do servidor de aplicação.
