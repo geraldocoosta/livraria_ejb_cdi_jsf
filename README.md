@@ -2,6 +2,10 @@
 
 Para esse projeto, foram usadas as especificações JSP com hibernate, JSF, CDI, EJB, com autenticação e autorização;
 
+## Projeto Rodando
+
+![Projeto rodando](https://i.imgur.com/VRYiEut.gif)
+
 ## Configurando
 
 Usar com WildFly 13.
