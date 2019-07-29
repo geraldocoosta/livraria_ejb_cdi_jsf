@@ -57,6 +57,8 @@ Dentro da tag &#60;drivers&#62;, colocar o seguinte código:
 </driver>
 ```
 
+Também deve ser criado um database usando o banco de dados mySql, chamado **livraria_jsf** e **sem senha!**
+
 Após isso, compilar o projeto com mvn package, e colocar o .war dentro do diretorio standalone\deployments a partir da raiz do servidor de aplicação.
 
 Agora é só iniciar o servidor abrindo o seguinte arquivo no windows, a partir da raiz do servidor de aplicação:
